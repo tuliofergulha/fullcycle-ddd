@@ -27,26 +27,20 @@ describe("Customer unit tests", () => {
     });
 
     it("should activate customer", () => {
-        // arrange
         const customer = new Customer("1", "Customer 1");
         const address = new Address("Street 1", 123, "12345-678", "São Paulo");
         customer.Address = address;
 
-        // act
         customer.activate();
 
-        // assert
         expect(customer.isActive()).toBe(true);
     });
 
     it("should deactivate customer", () => {
-        // arrange
         const customer = new Customer("1", "Customer 1");
     
-        // act
         customer.deactivate();
 
-        // assert
         expect(customer.isActive()).toBe(false);
     });
 
