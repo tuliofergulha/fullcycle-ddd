@@ -16,14 +16,14 @@ export default class OrderItemModel extends Model {
     declare product_id: string;
 
     @BelongsTo(() => ProductModel)
-    declare product: string;
+    declare product: ProductModel;
 
     @ForeignKey(() => OrderModel)
     @Column({ allowNull: false })
     declare order_id: string;
 
     @BelongsTo(() => OrderModel)
-    declare order: string;
+    declare order: OrderModel;
 
     @Column({ allowNull: false })
     declare quantity: number;

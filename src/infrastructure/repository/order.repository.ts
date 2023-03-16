@@ -1,5 +1,8 @@
 
+import Address from "../../domain/entity/address";
+import Customer from "../../domain/entity/customer";
 import Order from "../../domain/entity/order";
+import OrderItem from "../../domain/entity/order_item";
 import OrderRepositoryInterface from "../../domain/repository/order-repository.interface";
 import OrderItemModel from "../db/sequelize/model/order-item.model";
 import OrderModel from "../db/sequelize/model/order.model";
@@ -53,12 +56,51 @@ export default class OrderRepository implements OrderRepositoryInterface {
     }
 
     async find(id: string): Promise<Order> {
-        throw new Error("Method not implemented.")
+        let orderModel;
+        try {
+            orderModel = await OrderModel.findOne({
+                where: { id },
+                include: [{ model: OrderItemModel }],
+                rejectOnEmpty: true
+            });
+        } catch (error) {
+            throw new Error("Order not found");
+        }
+
+        const items = orderModel.items.map((item) => {
+            return new OrderItem(
+                item.id,
+                item.product_id,
+                item.name,
+                item.price,
+                item.quantity
+            );
+        });
+
+        return new Order(orderModel.id, orderModel.customer_id, items);
     }
 
 
     async findAll(): Promise<Order[]> {
-        throw new Error("Method not implemented.")
+        const orderModels = await OrderModel.findAll({
+            include: [{ model: OrderItemModel }],
+        });
+    
+        const orders = orderModels.map((orderModel) => {
+            const items = orderModel.items.map((item) => {
+                return new OrderItem(
+                    item.id,
+                    item.product_id,
+                    item.name,
+                    item.price,
+                    item.quantity
+                );
+            });
+    
+            return new Order(orderModel.id, orderModel.customer_id, items);
+        });
+    
+        return orders;
     }
 
 }
