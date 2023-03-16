@@ -10,16 +10,23 @@ export default class EventDispatcher implements EventDispatcherInterace {
         return this.eventHandlers;
     }
 
-    notify(event: EventInterface): void { }
+    notify(event: EventInterface): void {
+        const eventName = event.constructor.name;
+        if (this.eventHandlers[eventName]) {
+            this.eventHandlers[eventName].forEach((eventHandler) => {
+                eventHandler.handle(event);
+            });
+        }
+    }
 
-    register(eventName: string, eventHandler: EventHandlerInterface): void { 
+    register(eventName: string, eventHandler: EventHandlerInterface): void {
         if (!this.eventHandlers[eventName]) {
             this.eventHandlers[eventName] = [];
         }
         this.eventHandlers[eventName].push(eventHandler);
     }
 
-    unregister(eventName: string, eventHandler: EventHandlerInterface): void { 
+    unregister(eventName: string, eventHandler: EventHandlerInterface): void {
         if (this.eventHandlers[eventName]) {
             const index = this.eventHandlers[eventName].indexOf(eventHandler);
             if (index !== -1) {
@@ -27,8 +34,8 @@ export default class EventDispatcher implements EventDispatcherInterace {
             }
         }
     }
-    
+
     unregisterAll(): void {
         this.eventHandlers = {};
-     }
+    }
 }
