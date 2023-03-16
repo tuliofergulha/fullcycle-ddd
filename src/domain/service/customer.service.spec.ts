@@ -34,7 +34,7 @@ describe("Customer service unit tests", () => {
 
         eventDispatcher.register("CustomerCreatedEvent", eventHandler1);
         eventDispatcher.register("CustomerCreatedEvent", eventHandler2);
-        eventDispatcher.register("CustomerCreatedEvent", eventHandler3);
+        eventDispatcher.register("CustomerChangedAddressEvent", eventHandler3);
 
         const customer = CustomerService.createCustomerAndNotifyEvents("Túlio Fergulha", eventDispatcher);
         

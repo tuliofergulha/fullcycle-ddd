@@ -3,6 +3,7 @@ import EventDispatcher from "../event/@shared/event-dispatcher";
 import { v4 as uuid } from "uuid";
 import CustomerCreatedEvent from "../event/@shared/customer/customer-created.event";
 import Address from "../entity/address";
+import CustomerChangedAddressEvent from "../event/@shared/customer/customer-changed-address.event";
 
 export default class CustomerService {
 
@@ -16,7 +17,7 @@ export default class CustomerService {
 
     static changeCustomerAddressAndNotifyEvents(customer: Customer, address: Address, eventDispatcher: EventDispatcher): void {
         customer.changeAddress(address);
-        eventDispatcher.notify(new CustomerCreatedEvent({
+        eventDispatcher.notify(new CustomerChangedAddressEvent({
             id: customer.id,
             name: customer.name,
             street: customer.address.street,
