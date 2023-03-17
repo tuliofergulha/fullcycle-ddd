@@ -1,9 +1,9 @@
 import Customer from "../entity/customer";
-import EventDispatcher from "../event/@shared/event-dispatcher";
 import { v4 as uuid } from "uuid";
-import CustomerCreatedEvent from "../event/@shared/customer/customer-created.event";
-import Address from "../entity/address";
-import CustomerChangedAddressEvent from "../event/@shared/customer/customer-changed-address.event";
+import EventDispatcher from "../../@shared/event/event-dispatcher";
+import CustomerCreatedEvent from "../event/customer-created.event";
+import CustomerChangedAddressEvent from "../event/customer-changed-address.event";
+import Address from "../value-object/address";
 
 export default class CustomerService {
 

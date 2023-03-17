@@ -1,8 +1,8 @@
-import Address from "../entity/address";
-import SendConsoleLog1Handler from "../event/@shared/customer/handler/send-console-log-1.handler";
-import SendConsoleLog2Handler from "../event/@shared/customer/handler/send-console-log-2.handler";
-import SendConsoleLog3Handler from "../event/@shared/customer/handler/send-console-log-3.handler";
-import EventDispatcher from "../event/@shared/event-dispatcher";
+import EventDispatcher from "../../@shared/event/event-dispatcher";
+import Address from "../value-object/address";
+import SendConsoleLog1Handler from "../event/handler/send-console-log-1.handler";
+import SendConsoleLog2Handler from "../event/handler/send-console-log-2.handler";
+import SendConsoleLog3Handler from "../event/handler/send-console-log-3.handler";
 import CustomerService from "./customer.service";
 
 describe("Customer service unit tests", () => {
